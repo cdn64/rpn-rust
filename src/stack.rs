@@ -10,16 +10,16 @@ impl Stack {
         }
     }
     pub fn push(&mut self, token: Token) {
-        if token.is_number() {
-            self.stack.push(token)
-        } else {
-            // Apply change
-            if self.stack.len() < 2 {
-                panic!("Operator needs more two or more tokens on the stack");
-            } else {
-                let b = self.stack.pop().unwrap();
-                let a = self.stack.pop().unwrap();
-                self.stack.push(token.result(a, b));
+        match token {
+            Token::Number(_) => self.stack.push(token),
+            _ => {
+                if self.stack.len() < 2 {
+                    panic!("Operator needs more two or more tokens on the stack");
+                } else {
+                    let b = self.stack.pop().unwrap();
+                    let a = self.stack.pop().unwrap();
+                    self.stack.push(token.result(a, b));
+                }
             }
         }
     }

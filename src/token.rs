@@ -13,15 +13,6 @@ impl Token {
             _ => Token::Number(expression.parse::<i32>().expect("Unparseable number")),
         }
     }
-    pub fn is_number(&self) -> bool {
-        match self {
-            Token::Number(_) => true,
-            _ => false,
-        }
-    }
-    pub fn is_operator(&self) -> bool {
-        !self.is_number()
-    }
     pub fn result(&self, a: Token, b: Token) -> Token {
         if let (Token::Number(number_a), Token::Number(number_b)) = (a, b) {
             match self {
