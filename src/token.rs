@@ -1,53 +1,37 @@
-const PLUS: i32 = 1;
-const MINUS: i32 = 2;
-const MULTIPLY: i32 = 3;
-
-pub struct Token {
-    operator: bool,
-    value: i32,
+pub enum Token {
+    Plus,
+    Minus,
+    Multiply,
+    Number(i32),
 }
 impl Token {
-    pub fn value(&self) -> i32 {
-        self.value
-    }
     pub fn from(expression: &str) -> Token {
-        let operator = match expression {
-            "+" => PLUS,
-            "-" => MINUS,
-            "*" => MULTIPLY,
-            _ => 0,
-        };
-        if operator != 0 {
-            Token {
-                operator: true,
-                value: operator,
-            }
-        } else {
-            Token {
-                operator: false,
-                value: expression.parse::<i32>().expect("Unparseable number"),
-            }
+        match expression {
+            "+" => Token::Plus,
+            "-" => Token::Minus,
+            "*" => Token::Multiply,
+            _ => Token::Number(expression.parse::<i32>().expect("Unparseable number")),
         }
     }
     pub fn is_number(&self) -> bool {
-        self.operator == false
+        match self {
+            Token::Number(_) => true,
+            _ => false,
+        }
     }
     pub fn is_operator(&self) -> bool {
-        self.operator == true
+        !self.is_number()
     }
     pub fn result(&self, a: Token, b: Token) -> Token {
-        if a.is_operator() || b.is_operator() {
-            panic!("There are operators on the stack")
-        }
-        let result = match self.value {
-            PLUS => a.value + b.value,
-            MINUS => a.value - b.value,
-            MULTIPLY => a.value * b.value,
-            _ => panic!("Operator not supported"),
-        };
-        Token {
-            operator: false,
-            value: result,
+        if let (Token::Number(number_a), Token::Number(number_b)) = (a, b) {
+            match self {
+                Token::Plus => Token::Number(number_a + number_b),
+                Token::Minus => Token::Number(number_a - number_b),
+                Token::Multiply => Token::Number(number_a * number_b),
+                _ => panic!("Operator not supported"),
+            }
+        } else {
+            panic!("Operators on stack!")
         }
     }
 }

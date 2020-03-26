@@ -30,10 +30,12 @@ impl Stack {
         }
     }
     pub fn value(self) -> Result<i32, ()> {
-        if self.stack.len() > 0 {
-            Ok(self.stack.last().unwrap().value())
-        } else {
-            Err(())
+        if self.stack.len() <= 0 {
+            return Err(());
+        }
+        match self.stack.last().unwrap() {
+            Token::Number(value) => Ok(*value),
+            _ => Err(()),
         }
     }
 }
