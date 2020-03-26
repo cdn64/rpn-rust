@@ -1,4 +1,6 @@
 const PLUS: i32 = 1;
+const MINUS: i32 = 2;
+const MULTIPLY: i32 = 3;
 
 pub struct Token {
     operator: bool,
@@ -6,10 +8,16 @@ pub struct Token {
 }
 impl Token {
     fn from(expression: &str) -> Token {
-        if expression == "+" {
+        let operator = match expression {
+            "+" => PLUS,
+            "-" => MINUS,
+            "*" => MULTIPLY,
+            _ => 0,
+        };
+        if operator != 0 {
             Token {
                 operator: true,
-                value: PLUS,
+                value: operator,
             }
         } else {
             Token {
@@ -30,6 +38,8 @@ impl Token {
         }
         let result = match self.value {
             PLUS => a.value + b.value,
+            MINUS => a.value - b.value,
+            MULTIPLY => a.value * b.value,
             _ => panic!("Operator not supported"),
         };
         Token {
@@ -56,8 +66,8 @@ impl Stack {
             if self.stack.len() < 2 {
                 panic!("Operator needs more two or more tokens on the stack");
             } else {
-                let a = self.stack.pop().unwrap();
                 let b = self.stack.pop().unwrap();
+                let a = self.stack.pop().unwrap();
                 self.stack.push(token.result(a, b));
             }
         }
@@ -82,9 +92,16 @@ mod tests {
     use super::*;
 
     #[test]
-    fn it_works() {
+    fn simple_example() {
         let mut stack = Stack::new();
         stack.parse("1 2 +");
         assert_eq!(stack.value().unwrap(), 3);
+    }
+
+    #[test]
+    fn complex_example() {
+        let mut stack = Stack::new();
+        stack.parse("1 2 3 4 5 + - * +");
+        assert_eq!(stack.value().unwrap(), -11);
     }
 }
