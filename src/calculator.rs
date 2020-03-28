@@ -9,9 +9,11 @@ impl Calculator {
             stack: Vec::<i32>::new(),
         }
     }
+    pub fn value(&mut self) -> Option<i32> {
+        self.stack.last().map(|i| *i)
+    }
     pub fn calculate(&mut self, expression: &str) -> Option<i32> {
-        let tokens = Token::tokenize(expression);
-        for token in tokens {
+        for token in Token::tokenize(expression) {
             match token {
                 Token::Number(n) => self.stack.push(n),
                 Token::Plus => self.apply_binary_operator(&|a, b| a + b),
@@ -19,11 +21,11 @@ impl Calculator {
                 Token::Multiply => self.apply_binary_operator(&|a, b| a * b),
             }
         }
-        self.stack.last().map(|i| *i)
+        self.value()
     }
     pub fn apply_binary_operator(&mut self, operation: &dyn Fn(i32, i32) -> i32) {
         let stack_size = self.stack.len();
-        if self.stack.len() < 2 {
+        if stack_size < 2 {
             panic!(
                 "Current stack size of {} doesn't support binary operation",
                 stack_size
