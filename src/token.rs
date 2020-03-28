@@ -1,8 +1,8 @@
 pub enum Token {
-    Plus,
-    Minus,
-    Multiply,
-    Divide,
+    Addition,
+    Subtraction,
+    Multiplication,
+    Division,
     Number(f64),
 }
 impl Token {
@@ -11,10 +11,10 @@ impl Token {
     }
     pub fn from(expression: &str) -> Token {
         match expression {
-            "+" => Token::Plus,
-            "-" => Token::Minus,
-            "*" => Token::Multiply,
-            "/" => Token::Divide,
+            "+" => Token::Addition,
+            "-" => Token::Subtraction,
+            "*" => Token::Multiplication,
+            "/" => Token::Division,
             _ => Token::Number(expression.parse::<f64>().expect("Unparseable number")),
         }
     }

@@ -16,10 +16,10 @@ impl Calculator {
         for token in Token::tokenize(expression) {
             match token {
                 Token::Number(n) => self.stack.push(n),
-                Token::Plus => self.apply_binary_operator(&|a, b| a + b),
-                Token::Minus => self.apply_binary_operator(&|a, b| a - b),
-                Token::Multiply => self.apply_binary_operator(&|a, b| a * b),
-                Token::Divide => self.apply_binary_operator(&|a, b| a / b),
+                Token::Addition => self.apply_binary_operator(&|a, b| a + b),
+                Token::Subtraction => self.apply_binary_operator(&|a, b| a - b),
+                Token::Multiplication => self.apply_binary_operator(&|a, b| a * b),
+                Token::Division => self.apply_binary_operator(&|a, b| a / b),
             }
         }
         self.value()
