@@ -11,19 +11,19 @@ mod tests {
     #[test]
     fn simple_example() {
         let mut calculator = Calculator::new();
-        assert_eq!(calculator.calculate("1 2 +").unwrap(), 3);
+        assert_eq!(calculator.calculate("1 2 +").unwrap(), 3.0);
     }
 
     #[test]
     fn complex_example() {
         let mut calculator = Calculator::new();
-        assert_eq!(calculator.calculate("1 2 3 4 5 + - * +").unwrap(), -11);
+        assert_eq!(calculator.calculate("1 2 3 4 5 + - * +").unwrap(), -11.0);
     }
 
     #[test]
     fn parsing_multiple_times() {
         let mut calculator = Calculator::new();
-        assert_eq!(calculator.calculate("1").unwrap(), 1);
-        assert_eq!(calculator.calculate("2 *").unwrap(), 2);
+        assert_eq!(calculator.calculate("1").unwrap(), 1.0);
+        assert_eq!(calculator.calculate("2 *").unwrap(), 2.0);
     }
 }

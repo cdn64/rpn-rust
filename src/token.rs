@@ -2,7 +2,7 @@ pub enum Token {
     Plus,
     Minus,
     Multiply,
-    Number(i32),
+    Number(f64),
 }
 impl Token {
     pub fn tokenize(expression: &str) -> Vec<Token> {
@@ -13,7 +13,7 @@ impl Token {
             "+" => Token::Plus,
             "-" => Token::Minus,
             "*" => Token::Multiply,
-            _ => Token::Number(expression.parse::<i32>().expect("Unparseable number")),
+            _ => Token::Number(expression.parse::<f64>().expect("Unparseable number")),
         }
     }
 }

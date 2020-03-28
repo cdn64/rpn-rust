@@ -1,18 +1,18 @@
 use super::token::*;
 
 pub struct Calculator {
-    stack: Vec<i32>,
+    stack: Vec<f64>,
 }
 impl Calculator {
     pub fn new() -> Calculator {
         Calculator {
-            stack: Vec::<i32>::new(),
+            stack: Vec::<f64>::new(),
         }
     }
-    pub fn value(&mut self) -> Option<i32> {
+    pub fn value(&mut self) -> Option<f64> {
         self.stack.last().map(|i| *i)
     }
-    pub fn calculate(&mut self, expression: &str) -> Option<i32> {
+    pub fn calculate(&mut self, expression: &str) -> Option<f64> {
         for token in Token::tokenize(expression) {
             match token {
                 Token::Number(n) => self.stack.push(n),
@@ -23,7 +23,7 @@ impl Calculator {
         }
         self.value()
     }
-    pub fn apply_binary_operator(&mut self, operation: &dyn Fn(i32, i32) -> i32) {
+    pub fn apply_binary_operator(&mut self, operation: &dyn Fn(f64, f64) -> f64) {
         let stack_size = self.stack.len();
         if stack_size < 2 {
             panic!(
