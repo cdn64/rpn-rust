@@ -38,4 +38,18 @@ mod tests {
         assert_eq!(calculator.evaluate("1").unwrap(), 1.0);
         assert_eq!(calculator.evaluate("2 *").unwrap(), 2.0);
     }
+
+    #[test]
+    #[should_panic]
+    fn stack_empty() {
+        let mut calculator = Calculator::new();
+        calculator.evaluate("+");
+    }
+
+    #[test]
+    #[should_panic]
+    fn stack_emptied() {
+        let mut calculator = Calculator::new();
+        calculator.evaluate("3 6 + -");
+    }
 }
