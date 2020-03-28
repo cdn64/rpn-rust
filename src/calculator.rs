@@ -19,6 +19,7 @@ impl Calculator {
                 Token::Plus => self.apply_binary_operator(&|a, b| a + b),
                 Token::Minus => self.apply_binary_operator(&|a, b| a - b),
                 Token::Multiply => self.apply_binary_operator(&|a, b| a * b),
+                Token::Divide => self.apply_binary_operator(&|a, b| a / b),
             }
         }
         self.value()

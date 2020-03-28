@@ -21,6 +21,12 @@ mod tests {
     }
 
     #[test]
+    fn division() {
+        let mut calculator = Calculator::new();
+        assert_eq!(calculator.calculate("3 6 /").unwrap(), 0.5);
+    }
+
+    #[test]
     fn parsing_multiple_times() {
         let mut calculator = Calculator::new();
         assert_eq!(calculator.calculate("1").unwrap(), 1.0);
