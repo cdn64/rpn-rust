@@ -1,7 +1,7 @@
-mod stack;
+mod calculator;
 mod token;
 
-pub use stack::*;
+pub use calculator::*;
 pub use token::*;
 
 #[cfg(test)]
@@ -10,23 +10,20 @@ mod tests {
 
     #[test]
     fn simple_example() {
-        let mut stack = Stack::new();
-        stack.parse("1 2 +");
-        assert_eq!(stack.value().unwrap(), 3);
+        let mut calculator = Calculator::new();
+        assert_eq!(calculator.calculate("1 2 +").unwrap(), 3);
     }
 
     #[test]
     fn complex_example() {
-        let mut stack = Stack::new();
-        stack.parse("1 2 3 4 5 + - * +");
-        assert_eq!(stack.value().unwrap(), -11);
+        let mut calculator = Calculator::new();
+        assert_eq!(calculator.calculate("1 2 3 4 5 + - * +").unwrap(), -11);
     }
 
     #[test]
     fn parsing_multiple_times() {
-        let mut stack = Stack::new();
-        stack.parse("1");
-        stack.parse("2 *");
-        assert_eq!(stack.value().unwrap(), 2);
+        let mut calculator = Calculator::new();
+        assert_eq!(calculator.calculate("1").unwrap(), 1);
+        assert_eq!(calculator.calculate("2 *").unwrap(), 2);
     }
 }
