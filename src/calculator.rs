@@ -12,7 +12,7 @@ impl Calculator {
     pub fn value(&mut self) -> Option<f64> {
         self.stack.last().map(|i| *i)
     }
-    pub fn calculate(&mut self, expression: &str) -> Option<f64> {
+    pub fn evaluate(&mut self, expression: &str) -> Option<f64> {
         for token in Token::tokenize(expression) {
             match token {
                 Token::Number(n) => self.stack.push(n),
