@@ -27,6 +27,12 @@ mod tests {
     }
 
     #[test]
+    fn square_root() {
+        let mut calculator = Calculator::new();
+        assert_eq!(calculator.calculate("3 6 + sqrt").unwrap(), 3.0);
+    }
+
+    #[test]
     fn parsing_multiple_times() {
         let mut calculator = Calculator::new();
         assert_eq!(calculator.calculate("1").unwrap(), 1.0);

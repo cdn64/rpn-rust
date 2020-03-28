@@ -3,6 +3,7 @@ pub enum Token {
     Subtraction,
     Multiplication,
     Division,
+    SquareRoot,
     Number(f64),
 }
 impl Token {
@@ -15,6 +16,7 @@ impl Token {
             "-" => Token::Subtraction,
             "*" => Token::Multiplication,
             "/" => Token::Division,
+            "sqrt" => Token::SquareRoot,
             _ => Token::Number(expression.parse::<f64>().expect("Unparseable number")),
         }
     }
